@@ -256,17 +256,6 @@ func TestSSOProviderGetEmailAddress(t *testing.T) {
 			}
 			defer profileServer.Close()
 
-			session, err := p.Redeem("http://redirect/", tc.Code)
-			if tc.RedeemResponse != nil {
-				testutil.Equal(t, nil, err)
-				testutil.NotEqual(t, session, nil)
-				testutil.Equal(t, tc.RedeemResponse.Email, session.Email)
-				testutil.Equal(t, tc.RedeemResponse.AccessToken, session.AccessToken)
-				testutil.Equal(t, tc.RedeemResponse.RefreshToken, session.RefreshToken)
-			}
-			if tc.ExpectedError != "" && !strings.Contains(err.Error(), tc.ExpectedError) {
-				t.Errorf("got unexpected result.\nwant=%v\ngot=%v\n", tc.ExpectedError, err.Error())
-			}
 		})
 	}
 }

@@ -105,10 +105,12 @@ func (p *SSOProvider) Redeem(redirectURL, code string) (*SessionState, error) {
 	params.Add("code", code)
 	params.Add("grant_type", "authorization_code")
 
-	req, err := newRequest("POST", p.RedeemURL.String(), bytes.NewBufferString(params.Encode()))
+	RedeemURL, err := url.Parse("http://host.docker.internal/redeem")
+	req, err := newRequest("POST", RedeemURL.String(), bytes.NewBufferString(params.Encode()))
 	if err != nil {
 		return nil, err
 	}
+	req.Host = "sso-auth.localtest.me"
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	resp, err := httpClient.Do(req)
 	if err != nil {
