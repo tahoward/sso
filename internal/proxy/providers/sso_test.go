@@ -38,6 +38,10 @@ func newSSOProvider() *SSOProvider {
 				Scheme: "https",
 				Host:   "auth.example.com",
 			},
+			ProxyProviderURL: &url.URL{
+				Scheme: "https",
+				Host:   "auth.example.com",
+			},
 		}, nil)
 }
 
@@ -98,6 +102,7 @@ func TestSSOProviderDefaults(t *testing.T) {
 	testutil.Equal(t, fmt.Sprintf("%s/refresh", base), data.RefreshURL.String())
 	testutil.Equal(t, fmt.Sprintf("%s/validate", base), data.ValidateURL.String())
 	testutil.Equal(t, fmt.Sprintf("%s/profile", base), data.ProfileURL.String())
+	testutil.Equal(t, fmt.Sprintf("%s/redeem", base), data.ProxyRedeemURL.String())
 }
 
 type redeemResponse struct {

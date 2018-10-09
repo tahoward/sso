@@ -16,6 +16,7 @@ type ProviderData struct {
 	SignInURL         *url.URL
 	SignOutURL        *url.URL
 	RedeemURL         *url.URL
+	ProxyRedeemURL    *url.URL
 	RefreshURL        *url.URL
 	ProfileURL        *url.URL
 	ProtectedResource *url.URL
