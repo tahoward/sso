@@ -106,9 +106,7 @@ func (p *SSOProvider) Redeem(redirectURL, code string) (*SessionState, error) {
 	params.Add("code", code)
 	params.Add("grant_type", "authorization_code")
 
-	RedeemURL, err := url.Parse("http://host.docker.internal/redeem")
-	fmt.Printf("%v", p.ProxyRedeemURL.String())
-	req, err := newRequest("POST", RedeemURL.String(), bytes.NewBufferString(params.Encode()))
+	req, err := newRequest("POST", p.ProxyRedeemURL.String(), bytes.NewBufferString(params.Encode()))
 	if err != nil {
 		return nil, err
 	}
