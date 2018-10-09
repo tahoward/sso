@@ -110,7 +110,7 @@ func (p *SSOProvider) Redeem(redirectURL, code string) (*SessionState, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Host = "sso-auth.localtest.me"
+	req.Host = p.RedeemURL.Host
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	resp, err := httpClient.Do(req)
 	if err != nil {
