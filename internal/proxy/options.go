@@ -127,9 +127,6 @@ func (o *Options) Validate() error {
 	if o.ProviderURLString == "" {
 		msgs = append(msgs, "missing setting: provider-url")
 	}
-	if o.ProxyProviderURLString == "" {
-		o.ProxyProviderURLString = o.ProviderURLString
-	}
 	if o.UpstreamConfigsFile == "" {
 		msgs = append(msgs, "missing setting: upstream-configs")
 	}
@@ -220,13 +217,7 @@ func parseProviderInfo(o *Options) error {
 		return errors.New("provider-url must include scheme and host")
 	}
 
-	proxyproviderURL, err := url.Parse(o.ProxyProviderURLString)
-	if err != nil {
-		return err
-	}
-	if proxyproviderURL.Scheme == "" || proxyproviderURL.Host == "" {
-		return errors.New("proxyprovider-url must include scheme and host")
-	}
+	proxyproviderURL, _ := url.Parse(o.ProxyProviderURLString)
 
 	providerData := &providers.ProviderData{
 		ClientID:           o.ClientID,
